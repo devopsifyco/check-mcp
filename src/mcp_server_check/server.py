@@ -66,7 +66,7 @@ async def serve(
             headers = {"apikey": apikey}
             async with httpx.AsyncClient() as client:
                 try:
-                    resp = await client.get("https://api.opsify.dev/checks/cve", params=params, headers=headers, timeout=30)
+                    resp = await client.get("https://api.opsify.dev/checks/cve/search", params=params, headers=headers, timeout=30)
                     resp.raise_for_status()
                 except httpx.HTTPError as e:
                     raise McpError(ErrorData(code=INTERNAL_ERROR, message=f"Failed to query CVE API: {e}"))
