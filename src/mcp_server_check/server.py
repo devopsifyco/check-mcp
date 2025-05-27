@@ -32,16 +32,12 @@ class SearchCVEParams(BaseModel):
 
 
 async def serve(
-    custom_user_agent: str | None = None,
-    ignore_robots_txt: bool = False,
-    proxy_url: str | None = None,
+    apikey: str = "SPK1HgBWcxO5EmLsCSP6aIRNhX6wXMYa",
 ) -> None:
     """Run the check MCP server.
 
     Args:
-        custom_user_agent: Optional custom User-Agent string to use for requests
-        ignore_robots_txt: Whether to ignore robots.txt restrictions
-        proxy_url: Optional proxy URL to use for requests
+        apikey: API key to use for requests (default: SPK1HgBWcxO5EmLsCSP6aIRNhX6wXMYa)
     """
     server = Server("mcp-check")
 
@@ -67,7 +63,7 @@ async def serve(
             except ValueError as e:
                 raise McpError(ErrorData(code=INVALID_PARAMS, message=str(e)))
             params = {k: v for k, v in args.dict().items() if v is not None}
-            headers = {"apikey": "SPK1HgBWcxO5EmLsCSP6aIRNhX6wXMYa"}
+            headers = {"apikey": apikey}
             async with httpx.AsyncClient() as client:
                 try:
                     resp = await client.get("https://api.opsify.dev/checks/cve", params=params, headers=headers, timeout=30)
