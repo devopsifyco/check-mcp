@@ -1,6 +1,6 @@
 [project]
-name = "mcp-server-check"
-version = "0.6.3"
+name = "check-mcp"
+version = "0.0.1"
 description = "A Model Context Protocol server providing tools to check CVEs via Opsify API for usage by LLMs"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -26,7 +26,7 @@ dependencies = [
 ]
 
 [project.scripts]
-mcp-server-check = "mcp_server_check:main"
+check-mcp = "check_mcp:main"
 
 [build-system]
 requires = ["hatchling"]

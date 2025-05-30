@@ -6,7 +6,7 @@
           "--directory",
           "E://project/check-mcp",
           "run",
-          "mcp-server-check"
+          "check-mcp"
       ]
     }
   }
