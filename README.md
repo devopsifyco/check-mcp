@@ -25,13 +25,13 @@ A Model Context Protocol server that provides CVE checking capabilities via the 
 ### Example Usage
 
 ```python
-python -m mcp_server_check
+python -m check_mcp
 ```
 
 Or as a script/entry point:
 
 ```shell
-mcp-server-check
+check-mcp
 ```
 
 ### Example Tool Call
@@ -53,20 +53,20 @@ mcp-server-check
 ### Using uv (recommended)
 
 When using [`uv`](https://docs.astral.sh/uv/) no specific installation is needed. We will
-use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *mcp-server-check*.
+use [`uvx`](https://docs.astral.sh/uv/guides/tools/) to directly run *check-mcp*.
 
 ### Using PIP
 
-Alternatively you can install `mcp-server-check` via pip:
+Alternatively you can install `check-mcp` via pip:
 
 ```
-pip install mcp-server-check
+pip install check-mcp
 ```
 
 After installation, you can run it as a script using:
 
 ```
-python -m mcp_server_check
+python -m check_mcp
 ```
 
 ## Configuration
@@ -82,7 +82,7 @@ Add to your Claude settings:
 "mcpServers": {
   "check": {
     "command": "uvx",
-    "args": ["mcp-server-check"]
+    "args": ["check-mcp"]
   }
 }
 ```
@@ -108,7 +108,7 @@ Add to your Claude settings:
 "mcpServers": {
   "check": {
     "command": "python",
-    "args": ["-m", "mcp_server_check"]
+    "args": ["-m", "check_mcp"]
   }
 }
 ```
@@ -118,7 +118,7 @@ Add to your Claude settings:
 
 For quick installation, use one of the one-click install buttons below...
 
-[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22mcp-server-check%22%5D%7D) [![Install with UV in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-UV-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22mcp-server-check%22%5D%7D&quality=insiders)
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22check-mcp%22%5D%7D) [![Install with UV in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-UV-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22check-mcp%22%5D%7D&quality=insiders)
 
 [![Install with Docker in VS Code](https://img.shields.io/badge/VS_Code-Docker-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22mcp%2Fcheck%22%5D%7D) [![Install with Docker in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Docker-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22mcp%2Fcheck%22%5D%7D&quality=insiders)
 
@@ -137,7 +137,7 @@ Optionally, you can add it to a file called `.vscode/mcp.json` in your workspace
     "servers": {
       "check": {
         "command": "uvx",
-        "args": ["mcp-server-check"]
+        "args": ["check-mcp"]
       }
     }
   }
@@ -167,25 +167,25 @@ Optionally, you can add it to a file called `.vscode/mcp.json` in your workspace
 You can use the MCP inspector to debug the server. For uvx installations:
 
 ```
-npx @modelcontextprotocol/inspector uvx mcp-server-check
+npx @modelcontextprotocol/inspector uvx check-mcp
 ```
 
 Or if you've installed the package in a specific directory or are developing on it:
 
 ```
 cd path/to/servers/src/check
-npx @modelcontextprotocol/inspector uv run mcp-server-check
+npx @modelcontextprotocol/inspector uv run check-mcp
 ```
 
 ## Contributing
 
-We encourage contributions to help expand and improve mcp-server-check. Whether you want to add new tools, enhance existing functionality, or improve documentation, your input is valuable.
+We encourage contributions to help expand and improve check-mcp. Whether you want to add new tools, enhance existing functionality, or improve documentation, your input is valuable.
 
 For examples of other MCP servers and implementation patterns, see:
 https://github.com/modelcontextprotocol/servers
 
-Pull requests are welcome! Feel free to contribute new ideas, bug fixes, or enhancements to make mcp-server-check even more powerful and useful.
+Pull requests are welcome! Feel free to contribute new ideas, bug fixes, or enhancements to make check-mcp even more powerful and useful.
 
 ## License
 
-mcp-server-check is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the LICENSE file in the project repository.
+check-mcp is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the LICENSE file in the project repository.

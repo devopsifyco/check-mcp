@@ -1,5 +1,5 @@
 # __main__.py
 
-from mcp_server_check import main
+from check_mcp import main
 
 main()
