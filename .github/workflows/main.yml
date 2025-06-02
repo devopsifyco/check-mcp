@@ -3,14 +3,8 @@ name: Build & Deploy MCP Artifacts
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'client/**'
-      - '.github/workflows/mcp_client.yml'
   pull_request:
     branches: [ master ]
-    paths:
-      - 'client/**'
-      - '.github/workflows/mcp_client.yml'
   workflow_dispatch:
     inputs:
       bump:
