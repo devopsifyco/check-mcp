@@ -188,7 +188,7 @@ jobs:
           python -m twine upload dist/*
 
   build-docker-image:
-    needs: [update-version]    
+    needs: [update-version]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
