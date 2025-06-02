@@ -187,8 +187,9 @@ jobs:
           cd client
           python -m twine upload dist/*
 
-  build-docker-image:
+  build-release-docker-image:
     needs: [update-version]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -203,31 +204,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image (temporary tag)
+      - name: Build Docker image
         run: |
-          docker build -t opsifydev/check-mcp:build-${{ github.sha }} -f ./server/Dockerfile ./server
-          docker push opsifydev/check-mcp:build-${{ github.sha }}
+          docker build -t opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }} -t opsifydev/check-mcp:latest -f ./server/Dockerfile ./server
 
-  release-docker-image:
-    needs: [build-docker-image, update-version]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Pull, tag, and push Docker image
+      - name: Push Docker image
         run: |
-          docker pull opsifydev/check-mcp:build-${{ github.sha }}
-          docker tag opsifydev/check-mcp:build-${{ github.sha }} opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}
-          docker tag opsifydev/check-mcp:build-${{ github.sha }} opsifydev/check-mcp:latest
           docker push opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}
-          docker push opsifydev/check-mcp:latest
-
-      - name: Delete temporary build tag from Docker Hub
-        run: |
-          curl -X DELETE -u "${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" \
-            "https://hub.docker.com/v2/repositories/opsifydev/check-mcp/tags/build-${{ github.sha }}/" 
+          docker push opsifydev/check-mcp:latest 
