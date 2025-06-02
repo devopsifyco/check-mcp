@@ -1,0 +1,28 @@
+services:
+
+  mcp:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: check-mcp
+    ports:
+      - "${PORT:-8050}:8050"
+    env_file:
+      - .env
+    environment:
+      - TRANSPORT=${TRANSPORT:-sse}
+      - HOST=${HOST:-0.0.0.0}
+      - PORT=${PORT:-8050}
+      - OPSIFY_API_KEY=${OPSIFY_API_KEY}
+      - OPSIFY_API_BASE_URL=${OPSIFY_API_BASE_URL}
+      - SESSION_TIMEOUT=3600
+      - SESSION_CLEANUP_INTERVAL=300
+      - LOG_LEVEL=DEBUG
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    networks:
+      - mcp_network
+
+networks:
+  mcp_network:
+    driver: bridge
