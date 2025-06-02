@@ -185,4 +185,44 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           cd client
-          python -m twine upload dist/* 
+          python -m twine upload dist/*
+
+  build-docker-image:
+    needs: [update-version]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image (temporary tag)
+        run: |
+          docker build -t opsifydev/check-mcp:build-${{ github.sha }} -f ./server/Dockerfile ./server
+          docker push opsifydev/check-mcp:build-${{ github.sha }}
+
+  release-docker-image:
+    needs: [build-docker-image]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Pull, tag, and push Docker image
+        run: |
+          docker pull opsifydev/check-mcp:build-${{ github.sha }}
+          docker tag opsifydev/check-mcp:build-${{ github.sha }} opsifydev/check-mcp:${{ needs.build-docker-image.outputs.next_version }}
+          docker tag opsifydev/check-mcp:build-${{ github.sha }} opsifydev/check-mcp:latest
+          docker push opsifydev/check-mcp:${{ needs.build-docker-image.outputs.next_version }}
+          docker push opsifydev/check-mcp:latest 
