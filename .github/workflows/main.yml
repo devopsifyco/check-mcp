@@ -183,6 +183,7 @@ jobs:
 
   build-docker-image:
     needs: [update-version]
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -193,7 +194,7 @@ jobs:
 
       - name: Build Docker image (no push)
         run: |
-          docker build -t opsifydev/check-mcp:pr-${{ github.event.pull_request.head.sha }} -f ./server/Dockerfile ./server 
+          docker build -t opsifydev/check-mcp:pr-${{ github.event.pull_request.head.sha }} -f ./server/Dockerfile ./server
 
   release-docker-image:
     needs: [update-version]
