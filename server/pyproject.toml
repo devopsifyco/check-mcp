@@ -1,0 +1,13 @@
+[project]
+name = "mcp-devopsify"
+version = "0.1.0"
+description = "MCP server for DevOpsify"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.3.0",
+    "vecs>=0.4.5",
+    "aiohttp>=3.9.1",
+    "python-dotenv>=1.0.0"
+]
