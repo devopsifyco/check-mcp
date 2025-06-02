@@ -1,4 +1,4 @@
-name: Build & Deploy MCP Client
+name: Build & Deploy MCP Artifacts
 
 on:
   push:
@@ -225,4 +225,9 @@ jobs:
           docker tag opsifydev/check-mcp:build-${{ github.sha }} opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}
           docker tag opsifydev/check-mcp:build-${{ github.sha }} opsifydev/check-mcp:latest
           docker push opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}
-          docker push opsifydev/check-mcp:latest 
+          docker push opsifydev/check-mcp:latest
+
+      - name: Delete temporary build tag from Docker Hub
+        run: |
+          curl -X DELETE -u "${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" \
+            "https://hub.docker.com/v2/repositories/opsifydev/check-mcp/tags/build-${{ github.sha }}/" 
