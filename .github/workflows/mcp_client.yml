@@ -209,7 +209,7 @@ jobs:
           docker push opsifydev/check-mcp:build-${{ github.sha }}
 
   release-docker-image:
-    needs: [build-docker-image]
+    needs: [build-docker-image, update-version]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
