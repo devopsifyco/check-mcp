@@ -89,14 +89,14 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           next_version="${{ steps.bump_version.outputs.next_version }}"
-          sed -i "s/version: .*/version: $next_version/" README.md || true
-          sed -i "s/^version = \".*\"/version = \"$next_version\"/" pyproject.toml || true
+          sed -i "s/version: .*/version: $next_version/" client/README.md || true
+          sed -i "s/^version = \".*\"/version = \"$next_version\"/" client/pyproject.toml || true
 
       - name: Commit and push changes
         if: github.event_name == 'pull_request'
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "DevOpsify"
+          git config user.email "devopsifyco@gmail.com"
           git add README.md
           git commit -m "docs: update README.md version for ${{ steps.bump_version.outputs.next_version }}" || echo "No changes to commit"
           export GIT_EDITOR=true
