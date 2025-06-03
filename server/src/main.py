@@ -89,12 +89,12 @@ mcp = FastMCP(
 #mcp.tool()(load_versions)
 #mcp.tool()(create_product)
 
-mcp.tool()(get_specific_version)
-mcp.tool()(get_latest_version)
-mcp.tool()(search_releases)
-
-mcp.tool()(get_version_cves)
 mcp.tool()(search_cve)
+mcp.tool()(search_releases)
+mcp.tool()(get_version_cves)
+
+mcp.tool()(get_latest_version)
+mcp.tool()(get_specific_version)
 
 async def main():
     if Config.server.transport == 'sse':

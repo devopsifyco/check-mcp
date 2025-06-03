@@ -19,6 +19,15 @@ class GetVersionCVEsParams(BaseModel):
     version: str = Field(..., description="Specific version to retrieve CVEs for (e.g., '1.0.0')")
     vendor: Optional[str] = Field(None, description="Optional vendor name to filter by (case-insensitive)")
 
+class GetLatestVersionParams(BaseModel):
+    product_name: str = Field(..., description="Product name (e.g., 'nginx')")
+    vendor: Optional[str] = Field(None, description="Optional vendor name to filter by (case-insensitive)")
+
+class GetSpecificVersionParams(BaseModel):
+    product_name: str = Field(..., description="Product name (e.g., 'nginx')")
+    version: str = Field(..., description="Specific version to retrieve (e.g., '1.0.0')")
+    vendor: Optional[str] = Field(None, description="Optional vendor name to filter by (case-insensitive)")
+
 async def search_release(arguments: dict, apikey: str) -> list[TextContent]:
     try:
         args = SearchReleaseParams(**arguments)
@@ -79,4 +88,57 @@ async def get_version_cves(arguments: dict, apikey: str) -> list[TextContent]:
         results.append(
             f"CVE ID: {cve.get('cve_id', '')}\nState: {cve.get('state', '')}\nPublished: {cve.get('published_date', '')}\nScore: {cve.get('score', '')}\nTitle: {cve.get('title', '')}\nVendor: {cve.get('vendor', '')}\nDescription: {cve.get('description', '')}\nReferences: {', '.join(cve.get('references', []))}\n---"
         )
-    return [TextContent(type="text", text="\n\n".join(results))] 
+    return [TextContent(type="text", text="\n\n".join(results))]
+
+async def get_latest_version(arguments: dict, apikey: str) -> list[TextContent]:
+    try:
+        args = GetLatestVersionParams(**arguments)
+    except ValueError as e:
+        raise McpError(ErrorData(code=INVALID_PARAMS, message=str(e)))
+    product_name = args.product_name
+    vendor = args.vendor
+    headers = {"apikey": apikey}
+    endpoint = f"{Config.api.release_endpoint}/{product_name}/latest"
+    params = {}
+    if vendor:
+        params["vendor"] = vendor
+    async with httpx.AsyncClient() as client:
+        try:
+            resp = await client.get(endpoint, params=params, headers=headers, timeout=30)
+            resp.raise_for_status()
+        except httpx.HTTPError as e:
+            raise McpError(ErrorData(code=INTERNAL_ERROR, message=f"Failed to query Latest Version API: {e}"))
+        try:
+            data = resp.json()
+        except Exception as e:
+            raise McpError(ErrorData(code=INTERNAL_ERROR, message=f"Invalid JSON from Latest Version API: {e}"))
+    if not data:
+        return [TextContent(type="text", text="No latest version found for the given product.")]
+    return [TextContent(type="text", text=str(data))]
+
+async def get_specific_version(arguments: dict, apikey: str) -> list[TextContent]:
+    try:
+        args = GetSpecificVersionParams(**arguments)
+    except ValueError as e:
+        raise McpError(ErrorData(code=INVALID_PARAMS, message=str(e)))
+    product_name = args.product_name
+    version = args.version
+    vendor = args.vendor
+    headers = {"apikey": apikey}
+    endpoint = f"{Config.api.release_endpoint}/{product_name}/{version}"
+    params = {}
+    if vendor:
+        params["vendor"] = vendor
+    async with httpx.AsyncClient() as client:
+        try:
+            resp = await client.get(endpoint, params=params, headers=headers, timeout=30)
+            resp.raise_for_status()
+        except httpx.HTTPError as e:
+            raise McpError(ErrorData(code=INTERNAL_ERROR, message=f"Failed to query Specific Version API: {e}"))
+        try:
+            data = resp.json()
+        except Exception as e:
+            raise McpError(ErrorData(code=INTERNAL_ERROR, message=f"Invalid JSON from Specific Version API: {e}"))
+    if not data:
+        return [TextContent(type="text", text="No version found for the given product and version.")]
+    return [TextContent(type="text", text=str(data))] 
