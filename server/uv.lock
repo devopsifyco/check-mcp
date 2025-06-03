@@ -324,7 +324,7 @@ cli = [
 ]
 
 [[package]]
-name = "mcp-devopsify"
+name = "check-mcp"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

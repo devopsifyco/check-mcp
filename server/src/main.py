@@ -69,7 +69,7 @@ async def lifespan(server: FastMCP) -> AsyncIterator[DemoContext]:
 
 # Initialize FastMCP server with the DevOpsify client as context
 mcp = FastMCP(
-    "mcp-devopsify",
+    "check-mcp",
     description="MCP server for long term memory storage and retrieval with DevOpsify",
     lifespan=lifespan,
     host=Config.server.host,
