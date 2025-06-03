@@ -103,6 +103,24 @@ Add to your Claude settings:
 </details>
 
 <details>
+<summary>Using uv</summary>
+
+```json
+"mcpServers": {
+  "check": {
+    "command": "uv",
+    "args": [
+          "--directory",
+          "E://check-mcp/client",
+          "run",
+          "check-mcp"
+    ]
+  }
+}
+```
+</details>
+
+<details>
 <summary>Using docker</summary>
 
 ```json
