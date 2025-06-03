@@ -222,7 +222,7 @@ jobs:
           docker push opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}
           docker push opsifydev/check-mcp:latest
 
-  build-client-docker-image:
+  build-docker-image-client:
     needs: [update-version]
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
@@ -237,7 +237,7 @@ jobs:
         run: |
           docker build -t opsifydev/check-mcp:client-pr-${{ github.event.pull_request.head.sha }} -t opsifydev/check-mcp:client-latest -f ./client/Dockerfile ./client
 
-  release-client-docker-image:
+  release-docker-image-client:
     needs: [update-version]
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
