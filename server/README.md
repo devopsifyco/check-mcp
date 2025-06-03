@@ -27,8 +27,8 @@ Use this as a reference point to build your MCP servers yourself, or give this a
 
 2. Clone this repository:
    ```bash
-   git clone https://github.com/devopsify/mcp-devopsify.git
-   cd mcp-devopsify
+   git clone https://github.com/devopsifyco/check-mcp.git
+   cd check-mcp
    ```
 
 3. Install dependencies:
@@ -84,7 +84,7 @@ With stdio, the MCP client iself can spin up the MCP server, so nothing to run a
 #### SSE Transport
 
 ```bash
-docker run --env-file .env -p:8050:8050 mcp/devopsify
+docker run --env-file .env -p:8050:8050 opsifydev/check-mcp
 ```
 
 The MCP server will essentially be run as an API endpoint within the container that you can then connect to with config shown below.
@@ -136,8 +136,8 @@ Add this server to your MCP configuration for Claude Desktop, Windsurf, or any o
 {
   "mcpServers": {
     "devopsify": {
-      "command": "your/path/to/mcp-devopsify/.venv/Scripts/python.exe",
-      "args": ["your/path/to/mcp-devopsify/src/main.py"],
+      "command": "your/path/to/check-mcp/.venv/Scripts/python.exe",
+      "args": ["your/path/to/check-mcp/src/main.py"],
       "env": {
         "TRANSPORT": "stdio",
       }

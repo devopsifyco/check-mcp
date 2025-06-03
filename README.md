@@ -195,8 +195,8 @@ check-mcp
 {
   "mcpServers": {
     "devopsify": {
-      "command": "your/path/to/mcp-devopsify/.venv/Scripts/python.exe",
-      "args": ["your/path/to/mcp-devopsify/src/main.py"],
+      "command": "your/path/to/check-mcp/.venv/Scripts/python.exe",
+      "args": ["your/path/to/check-mcp/src/main.py"],
       "env": {
         "TRANSPORT": "stdio"
       }

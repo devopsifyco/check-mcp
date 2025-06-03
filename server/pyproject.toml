@@ -1,7 +1,7 @@
 [project]
-name = "mcp-devopsify"
+name = "check-mcp"
 version = "0.1.0"
-description = "MCP server for DevOpsify"
+description = "MCP server for DevOpsify Check CVE"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
