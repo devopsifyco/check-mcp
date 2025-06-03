@@ -1,4 +1,4 @@
-# Check MCP Server
+# Check MCP Server (Stdio)
 
 A Model Context Protocol server that provides CVE checking capabilities via the Opsify API. This server enables LLMs to search for and retrieve CVE (Common Vulnerabilities and Exposures) information using a flexible set of filters.
 
@@ -109,7 +109,7 @@ Add to your Claude settings:
 "mcpServers": {
   "check": {
     "command": "docker",
-    "args": ["run", "-i", "--rm", "mcp/check"]
+    "args": ["run", "-i", "--rm", "opsifydev/check-mcp:client-latest"]
   }
 }
 ```
@@ -168,7 +168,7 @@ Optionally, you can add it to a file called `.vscode/mcp.json` in your workspace
     "servers": {
       "check": {
         "command": "docker",
-        "args": ["run", "-i", "--rm", "mcp/check"]
+        "args": ["run", "-i", "--rm", "opsifydev/check-mcp:client-latest"]
       }
     }
   }
@@ -193,13 +193,14 @@ npx @modelcontextprotocol/inspector uv run check-mcp
 
 ## Contributing
 
-We encourage contributions to help expand and improve check-mcp. Whether you want to add new tools, enhance existing functionality, or improve documentation, your input is valuable.
+We welcome contributions to help expand and improve check-mcp! Whether you want to add new tools, enhance existing functionality, or improve documentation, your input is valuable.
 
-For examples of other MCP servers and implementation patterns, see:
-https://github.com/modelcontextprotocol/servers
+- Pull requests are welcome. Please feel free to submit new ideas, bug fixes, or enhancements.
+- For examples of other MCP servers and implementation patterns, see: https://github.com/modelcontextprotocol/servers
 
-Pull requests are welcome! Feel free to contribute new ideas, bug fixes, or enhancements to make check-mcp even more powerful and useful.
+If you have suggestions or find bugs, please open an issue or submit a pull request.
 
 ## License
 
-check-mcp is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License. For more details, please see the LICENSE file in the project repository.
+This project is licensed under the Apache License, Version 2.0. See the LICENSE file or visit https://devopsify.co/license for details.
+

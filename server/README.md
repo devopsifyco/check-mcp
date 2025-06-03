@@ -155,7 +155,7 @@ Add this server to your MCP configuration for Claude Desktop, Windsurf, or any o
       "command": "docker",
       "args": ["run", "--rm", "-i", 
                "-e", "TRANSPORT", 
-               "mcp/devopsify"],
+               "opsifydev/check-mcp"],
       "env": {
         "TRANSPORT": "stdio",
       }
