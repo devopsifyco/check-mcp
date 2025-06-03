@@ -1,4 +1,4 @@
-<h1 align="center">MCP-DevOpsify</h1>
+# Check MCP Server (SSE)
 
 A template implementation of the [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server integrated with [DevOpsify](https://opsify.dev).
 
