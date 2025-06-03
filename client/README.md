@@ -22,6 +22,20 @@ A Model Context Protocol server that provides CVE checking capabilities via the 
     - `skip` (int, optional): Number of records to skip (pagination)
     - `limit` (int, optional): Maximum number of records to return (pagination)
 
+- `search_release` - Search releases with optional filters for vendor, product name, and date range. Supports pagination.
+    - `vendor` (string, optional): Vendor name to filter by (case-insensitive)
+    - `product_name` (string, optional): Product name to filter by (case-insensitive)
+    - `from_date` (string, optional): Start date (inclusive) for filtering (YYYY-MM-DD or ISO datetime)
+    - `to_date` (string, optional): End date (inclusive) for filtering (YYYY-MM-DD or ISO datetime)
+    - `date_field` (string, optional): Which date field to filter on (e.g., "release_date")
+    - `page` (int, optional): Page number (starting from 1)
+    - `page_size` (int, optional): Number of items per page
+
+- `get_version_cves` - Get CVEs for a specific version of a product. Optionally filter by vendor. Uses caching (TTL: 1 day).
+    - `product_name` (string, required): Product name (e.g., 'nginx')
+    - `version` (string, required): Specific version to retrieve CVEs for (e.g., '1.0.0')
+    - `vendor` (string, optional): Vendor name to filter by (case-insensitive)
+
 ### Example Usage
 
 ```python

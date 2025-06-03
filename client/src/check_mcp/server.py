@@ -12,6 +12,7 @@ from mcp.types import (
 )
 from .cve import SearchCVEParams, search_cve
 from .release import SearchReleaseParams, GetVersionCVEsParams, search_release, get_version_cves
+from .release import GetLatestVersionParams, GetSpecificVersionParams, get_latest_version, get_specific_version
 
 async def serve(
     apikey: str = "SPK1HgBWcxO5EmLsCSP6aIRNhX6wXMYa",
@@ -41,6 +42,16 @@ async def serve(
                 description="Get CVEs for a specific version of a product. Optionally filter by vendor. Uses caching (TTL: 1 day).",
                 inputSchema=GetVersionCVEsParams.model_json_schema(),
             ),
+            Tool(
+                name="get_latest_version",
+                description="Get the latest version information for a product. Optionally filter by vendor.",
+                inputSchema=GetLatestVersionParams.model_json_schema(),
+            ),
+            Tool(
+                name="get_specific_version",
+                description="Get a specific version of a product. Optionally filter by vendor.",
+                inputSchema=GetSpecificVersionParams.model_json_schema(),
+            ),
         ]
 
     @server.list_prompts()
@@ -55,6 +66,10 @@ async def serve(
             return await search_release(arguments, apikey)
         elif name == "get_version_cves":
             return await get_version_cves(arguments, apikey)
+        elif name == "get_latest_version":
+            return await get_latest_version(arguments, apikey)
+        elif name == "get_specific_version":
+            return await get_specific_version(arguments, apikey)
         else:
             raise McpError(ErrorData(code=INVALID_PARAMS, message=f"Unknown tool: {name}"))
 
