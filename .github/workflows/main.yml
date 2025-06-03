@@ -235,7 +235,7 @@ jobs:
 
       - name: Build client Docker image (no push)
         run: |
-          docker build -t opsifydev/check-mcp:client-pr-${{ github.event.pull_request.head.sha }} -t opsifydev/check-mcp:client-latest -f ./client/Dockerfile ./client
+          docker build -t opsifydev/check-mcp:client-pr-${{ github.event.pull_request.head.sha }} -t opsifydev/check-mcp:latest-client -f ./client/Dockerfile ./client
 
   release-docker-image-client:
     needs: [update-version]
@@ -256,9 +256,9 @@ jobs:
 
       - name: Build client Docker image
         run: |
-          docker build -t opsifydev/check-mcp:client-${{ needs.update-version.outputs.next_version }} -t opsifydev/check-mcp:client-latest -f ./client/Dockerfile ./client
+          docker build -t opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}-client -t opsifydev/check-mcp:latest-client -f ./client/Dockerfile ./client
 
       - name: Push client Docker image
         run: |
-          docker push opsifydev/check-mcp:client-${{ needs.update-version.outputs.next_version }}
-          docker push opsifydev/check-mcp:client-latest
+          docker push opsifydev/check-mcp:${{ needs.update-version.outputs.next_version }}-client
+          docker push opsifydev/check-mcp:latest-client
