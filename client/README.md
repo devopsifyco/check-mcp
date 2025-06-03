@@ -127,7 +127,7 @@ Add to your Claude settings:
 "mcpServers": {
   "check": {
     "command": "docker",
-    "args": ["run", "-i", "--rm", "opsifydev/check-mcp:client-latest"]
+    "args": ["run", "-i", "--rm", "opsifydev/check-mcp:latest-client"]
   }
 }
 ```
@@ -186,7 +186,7 @@ Optionally, you can add it to a file called `.vscode/mcp.json` in your workspace
     "servers": {
       "check": {
         "command": "docker",
-        "args": ["run", "-i", "--rm", "opsifydev/check-mcp:client-latest"]
+        "args": ["run", "-i", "--rm", "opsifydev/check-mcp:latest-client"]
       }
     }
   }
