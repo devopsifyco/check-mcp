@@ -13,15 +13,18 @@ from mcp.types import (
 from .cve import SearchCVEParams, search_cve
 from .release import SearchReleaseParams, GetVersionCVEsParams, search_release, get_version_cves
 from .release import GetLatestVersionParams, GetSpecificVersionParams, get_latest_version, get_specific_version
+import os
 
 async def serve(
-    apikey: str = "SPK1HgBWcxO5EmLsCSP6aIRNhX6wXMYa",
+    apikey: str = os.getenv("CHECK_API_KEY"),
 ) -> None:
     """Run the check MCP server.
 
     Args:
-        apikey: API key to use for requests (default: SPK1HgBWcxO5EmLsCSP6aIRNhX6wXMYa)
+        apikey: API key to use for requests (must be provided via CHECK_API_KEY environment variable or CLI)
     """
+    if not apikey:
+        raise RuntimeError("API key must be provided via CHECK_API_KEY environment variable or CLI argument.")
     server = Server("mcp-check")
 
     @server.list_tools()

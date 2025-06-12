@@ -15,7 +15,9 @@ class ServerConfig:
 
 @dataclass
 class APIConfig:
-    """API configuration settings."""
+    """API configuration settings.
+    The API key is read from the CHECK_API_KEY environment variable.
+    """
     base_url: str = "https://api.opsify.dev"
     api_key: Optional[str] = None
     release_endpoint: str = "/checks/release"
@@ -23,7 +25,9 @@ class APIConfig:
     cve_endpoint: str = "/checks/cve"
 
 class Config:
-    """Core configuration settings for the DevOpsify MCP server."""
+    """Core configuration settings for the DevOpsify MCP server.
+    The API key is read from the CHECK_API_KEY environment variable.
+    """
     
     # Server configuration
     server = ServerConfig(
@@ -35,7 +39,7 @@ class Config:
     # API configuration
     api = APIConfig(
         base_url=os.getenv("OPSIFY_API_BASE_URL", "https://api.opsify.dev"),
-        api_key=os.getenv("OPSIFY_API_KEY"),
+        api_key=os.getenv("CHECK_API_KEY"),
         release_endpoint="/checks/release",
         product_endpoint="/checks/product",
         cve_endpoint="/checks/cve"
@@ -45,7 +49,7 @@ class Config:
     def validate_config(cls) -> None:
         """Validate that all required configuration is present."""
         if not cls.api.api_key:
-            raise ValueError("OPSIFY_API_KEY environment variable is not set")
+            raise ValueError("CHECK_API_KEY environment variable is not set")
             
         if not cls.api.base_url:
             raise ValueError("OPSIFY_API_BASE_URL environment variable is not set")
