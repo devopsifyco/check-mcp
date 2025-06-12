@@ -120,3 +120,107 @@ Add to your Claude settings:
   }
 }
 ```
+</details>
+
+<details>
+<summary>Using docker</summary>
+
+```json
+"mcpServers": {
+  "check": {
+    "command": "docker",
+    "args": ["run", "-i", "--rm", "opsifydev/check-mcp:latest-client"]
+  }
+}
+```
+</details>
+
+<details>
+<summary>Using pip installation</summary>
+
+```json
+"mcpServers": {
+  "check": {
+    "command": "python",
+    "args": ["-m", "check_mcp"]
+  }
+}
+```
+</details>
+
+### Configure for VS Code
+
+For quick installation, use one of the one-click install buttons below...
+
+[![Install with UV in VS Code](https://img.shields.io/badge/VS_Code-UV-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22check-mcp%22%5D%7D) [![Install with UV in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-UV-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22uvx%22%2C%22args%22%3A%5B%22check-mcp%22%5D%7D&quality=insiders)
+
+[![Install with Docker in VS Code](https://img.shields.io/badge/VS_Code-Docker-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22mcp%2Fcheck%22%5D%7D) [![Install with Docker in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Docker-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=check&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22mcp%2Fcheck%22%5D%7D&quality=insiders)
+
+For manual installation, add the following JSON block to your User Settings (JSON) file in VS Code. You can do this by pressing `Ctrl + Shift + P` and typing `Preferences: Open User Settings (JSON)`.
+
+Optionally, you can add it to a file called `.vscode/mcp.json` in your workspace. This will allow you to share the configuration with others.
+
+> Note that the `mcp` key is needed when using the `mcp.json` file.
+
+<details>
+<summary>Using uvx</summary>
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "check": {
+        "command": "uvx",
+        "args": ["check-mcp"]
+      }
+    }
+  }
+}
+```
+</details>
+
+<details>
+<summary>Using Docker</summary>
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "check": {
+        "command": "docker",
+        "args": ["run", "-i", "--rm", "opsifydev/check-mcp:latest-client"]
+      }
+    }
+  }
+}
+```
+</details>
+
+## Debugging
+
+You can use the MCP inspector to debug the server. For uvx installations:
+
+```
+npx @modelcontextprotocol/inspector uvx check-mcp
+```
+
+Or if you've installed the package in a specific directory or are developing on it:
+
+```
+cd path/to/servers/src/check
+npx @modelcontextprotocol/inspector uv run check-mcp
+```
+
+## Contributing
+
+We welcome contributions to help expand and improve check-mcp! Whether you want to add new tools, enhance existing functionality, or improve documentation, your input is valuable.
+
+- Pull requests are welcome. Please feel free to submit new ideas, bug fixes, or enhancements.
+- For examples of other MCP servers and implementation patterns, see: https://github.com/modelcontextprotocol/servers
+
+If you have suggestions or find bugs, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the Apache License, Version 2.0. See the LICENSE file or visit https://devopsify.co/license for details.
+
