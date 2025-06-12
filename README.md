@@ -84,6 +84,7 @@ docker run --env-file .env -p 8050:8050 opsify/mcp
 | TRANSPORT   | Transport protocol (`sse` or `stdio`)       | `sse`                  |
 | HOST        | Host to bind to (SSE only)                  | `0.0.0.0`              |
 | PORT        | Port to listen on (SSE only)                | `8050`                 |
+| CHECK_API_KEY | API key for authenticating with the Opsify API | `<your-api-key>`   |
 
 ---
 

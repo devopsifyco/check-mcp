@@ -61,6 +61,7 @@ The following environment variables can be configured in your `.env` file:
 | `TRANSPORT` | Transport protocol (sse or stdio) | `sse` |
 | `HOST` | Host to bind to when using SSE transport | `0.0.0.0` |
 | `PORT` | Port to listen on when using SSE transport | `8050` |
+| `CHECK_API_KEY` | API key for authenticating with the Opsify API | `<your-api-key>` |
 
 ## Running the Server
 

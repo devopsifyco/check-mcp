@@ -5,6 +5,8 @@ A Model Context Protocol server that provides CVE checking capabilities via the 
 > [!CAUTION]
 > This server can access external APIs and may represent a security risk if misconfigured. Ensure your API key and usage comply with your organization's security policies.
 
+> The API key is read from the `CHECK_API_KEY` environment variable. Set this variable to your Opsify API key before running the client or server.
+
 ### Available Tools
 
 - `search_cve` - Search CVEs with various filters via the Opsify API.
